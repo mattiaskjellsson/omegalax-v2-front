@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { FiSettings, FiThermometer, FiBarChart } from 'react-icons/fi';
+import { FiSettings, FiThermometer, FiBarChart, FiBell, FiBellOff } from 'react-icons/fi';
 import { BiTachometer, } from 'react-icons/bi';
 
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
-import './tank.css';
-import './tank-tabs.css';
+import { Oxygen } from './oxygen/oxygen';
+import { Settings } from './settings/settings';
+import { Temperature } from './temperature/temperature';
 
-export function Tank({id, values, limits}) {
-  const [alarmIconStyle, setAlarmIconStyle] = useState({ color: '#c0d793', opacity: 0.3 });
-  
-  useEffect(() => {
-    const c = limits?.isAlarmOn 
-      ? { color: '#c0d793;', opacity: 1.0 } 
-      : { color: '#c0d793;', opacity: 0.3 }
-    setAlarmIconStyle(c)
-  }, [limits])
+import './tank-tabs.css';
+import './tank.css';
+
+export function Tank({id, values, limits, onSettingsSave}) {
+  const [selectedTab, setSelectedTab] = useState(0);
 
   const tankName = (id) => {
     return id > 0 && id < 15 
@@ -25,6 +21,14 @@ export function Tank({id, values, limits}) {
         : `c${id}`;
   }
 
+  const handleSettingsSave = (settings) => {
+    onSettingsSave({poolId: id, ...settings})
+  }
+
+  const handleTabChange = (curr, prev, event) => {
+    setSelectedTab(curr);
+  }
+
   return (
     <div className='tank'>
       <div className='header'>
@@ -32,28 +36,51 @@ export function Tank({id, values, limits}) {
           <div className='name'>{tankName(id)}</div>
         </div>
         <div className='alarm-status-wrapper'>
-          <NotificationsActiveIcon style={alarmIconStyle} />
+          { limits?.isAlarmOn ? <FiBell /> : <FiBellOff />}
         </div>
       </div>
-      <Tabs>
+      <Tabs
+        selectedIndex={selectedTab}
+        onSelect={handleTabChange}
+      >
         <TabList>
-          <Tab><BiTachometer size={28} /></Tab>
-          <Tab><FiThermometer size={28} /></Tab>
-          <Tab disabled={true}><FiBarChart size={28} /></Tab>
-          <Tab><FiSettings size={28} /></Tab>
+          <Tab>
+            <div className='tab-wrapper'>
+              <BiTachometer size={28} />
+              <div className='tab-name'>Oxygen</div>
+            </div>
+          </Tab>
+          <Tab>
+            <div className='tab-wrapper'>
+              <FiThermometer size={28} />
+              <div className='tab-name'>Temp.</div>
+            </div>
+          </Tab>
+          <Tab disabled={true}>
+            <div className='tab-wrapper'>
+              <FiBarChart size={28} />
+              <div className='tab-name'>History</div>
+            </div>
+          </Tab>
+          <Tab>
+            <div className='tab-wrapper'>
+              <FiSettings size={28} />
+              <div className='tab-name'>Settings</div>
+            </div>
+          </Tab>
         </TabList>
 
         <TabPanel>
-          Any content 1
+          <Oxygen oxygen={values?.oxygen ?? null} limits={limits}/>
         </TabPanel>
         <TabPanel>
-          Any content 2
+          <Temperature value={values?.temperature ?? null } />
         </TabPanel>
         <TabPanel>
           Any content 3
         </TabPanel>
         <TabPanel>
-          Any content 4
+          <Settings limits={limits} onSave={handleSettingsSave}/>
         </TabPanel>
       </Tabs>
     </div>

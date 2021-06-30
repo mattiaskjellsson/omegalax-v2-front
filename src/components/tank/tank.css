@@ -1,10 +1,12 @@
 .tank {
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-top: 16px;
+  margin-left: 4px;
+  margin-right: 4px;
   min-width: 200px;
 }
 
 .header {
+  color: #c0d793;
   display: flex;
   flex-direction: row;
 }
@@ -17,19 +19,15 @@
 }
 
 .name {
-  color: #c0d793;
   font-size: x-large;
   font-weight: 700;
-  padding: 10px;
+  padding: 8px;
 }
 
 .alarm-status-wrapper {
   display: flex;
   flex-grow: 0;
   align-items: center;
-}
-
-.alarm-image {
-  width: 30px;
-  height: auto;
+  font-size: 16px;
+  padding-top: 4px;
 }

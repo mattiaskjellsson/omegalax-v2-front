@@ -25,9 +25,9 @@
 .react-tabs__tab {
   background-color: #ddd;
   display: flex;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  padding: 5px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 4px;
   flex-grow: 1;
   justify-content: center;
   align-content: center;
@@ -43,10 +43,21 @@
   height: 200px;
   color: #333;
   background-color: whitesmoke;
-  padding: 10px;
+  padding: 8px;
 }
-
 
 .react-tabs>ul {
   list-style-type: none;
+}
+
+.tab-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.tab-name {
+  font-size: xx-small;
 }

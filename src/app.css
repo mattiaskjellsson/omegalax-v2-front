@@ -6,9 +6,6 @@
   min-height: 100vh;
 }
 
-/* align-items: center;
-  justify-content: center; */
-
 a {
   color: #61dafb;
   text-decoration: none;
@@ -22,11 +19,12 @@ a {
 .wall-container {
   display: flex;
   flex-direction: row;
-  margin-left: 10px;
 }
 
 .wall {
+  margin-left: 4px;
+  margin-right: 4px;
   min-height: 210px;
-  min-width: 20px;
+  min-width: 24px;
   background-color: gray;
 }
