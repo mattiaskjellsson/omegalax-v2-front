@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { Phone, Favorite, ShowChart,PersonPin } from '@material-ui/icons';
+import { FiSettings, FiThermometer, FiBarChart } from 'react-icons/fi';
+import { BiTachometer, } from 'react-icons/bi';
+
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import './tank.css';
 import './tank-tabs.css';
@@ -16,7 +18,11 @@ export function Tank({id, values, limits}) {
   }, [limits])
 
   const tankName = (id) => {
-    return id;
+    return id > 0 && id < 15 
+      ? `a${id}`
+      : id >= 15 && id < 30 
+        ? `b${id-14}` 
+        : `c${id}`;
   }
 
   return (
@@ -31,10 +37,10 @@ export function Tank({id, values, limits}) {
       </div>
       <Tabs>
         <TabList>
-          <Tab><Phone /></Tab>
-          <Tab><Favorite /></Tab>
-          <Tab disabled={true}><ShowChart /></Tab>
-          <Tab><PersonPin /></Tab>
+          <Tab><BiTachometer size={28} /></Tab>
+          <Tab><FiThermometer size={28} /></Tab>
+          <Tab disabled={true}><FiBarChart size={28} /></Tab>
+          <Tab><FiSettings size={28} /></Tab>
         </TabList>
 
         <TabPanel>

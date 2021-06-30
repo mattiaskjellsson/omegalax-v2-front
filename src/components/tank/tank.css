@@ -19,11 +19,14 @@
 .name {
   color: #c0d793;
   font-size: x-large;
+  font-weight: 700;
+  padding: 10px;
 }
 
 .alarm-status-wrapper {
   display: flex;
   flex-grow: 0;
+  align-items: center;
 }
 
 .alarm-image {

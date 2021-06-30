@@ -24,9 +24,16 @@ export function App() {
             : tank(x)
         })
       }</div>
-      <div className="tank-row">
-
-      </div>
+      <div className="tank-row">{
+        bTanks.map((x, i) => {
+          return i === 7 
+            ? (<div className='wall-container' key={uuid()}>
+                <div key={uuid()} className="wall"></div>
+                {tank(x)}
+              </div>)
+            : tank(x)
+        })
+      }</div>
       <div className="tank-row">
 
       </div>
