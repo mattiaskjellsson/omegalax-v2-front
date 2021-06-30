@@ -23,8 +23,8 @@ export function App() {
       setData(await getData())
     }
 
-    
     fetchLimits()
+    fetchData() 
     setTimer(setInterval(() => {
       fetchData()
     }, 10000))

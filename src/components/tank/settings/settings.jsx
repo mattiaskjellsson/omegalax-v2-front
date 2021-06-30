@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import './settings.css';
 
 export function Settings({limits, onSave}) {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   
   const mySubmit = (e) => {
     e.preventDefault();
