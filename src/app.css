@@ -16,6 +16,11 @@ a {
   flex-direction: row; 
 }
 
+.tank-row-after {
+  min-width: 4px;
+  display: flex;
+}
+
 .wall-container {
   display: flex;
   flex-direction: row;
@@ -27,4 +32,15 @@ a {
   min-height: 210px;
   min-width: 24px;
   background-color: gray;
+}
+
+.spacer-tank-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.spacer-tank {
+  min-width: 208px;
+  min-height: 210px;
+  display: flex;
 }

@@ -7,7 +7,7 @@ export function Settings({limits, onSave}) {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   
   const mySubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     handleSubmit(onSave)(e)
   }
 

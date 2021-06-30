@@ -11,22 +11,20 @@ import './tank-tabs.css';
 import './tank.css';
 
 export function Tank({id, values, limits, onSettingsSave}) {
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const tankName = (id) => {
     return id > 0 && id < 15 
       ? `a${id}`
-      : id >= 15 && id < 30 
+      : id >= 15 && id < 28 
         ? `b${id-14}` 
-        : `c${id}`;
+        : id >= 28 && id < 41
+          ? `c${id-27}`
+          : `d${id-39}`
   }
 
   const handleSettingsSave = (settings) => {
     onSettingsSave({poolId: id, ...settings})
-  }
-
-  const handleTabChange = (curr, prev, event) => {
-    setSelectedTab(curr);
   }
 
   return (
@@ -40,8 +38,8 @@ export function Tank({id, values, limits, onSettingsSave}) {
         </div>
       </div>
       <Tabs
-        selectedIndex={selectedTab}
-        onSelect={handleTabChange}
+        selectedIndex={tabIndex} 
+        onSelect={index => setTabIndex(index) }
       >
         <TabList>
           <Tab>

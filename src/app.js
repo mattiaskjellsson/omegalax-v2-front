@@ -6,9 +6,9 @@ import { putLimits, getAllLimits, getData } from './actions/api';
 
 export function App() {
   const aTanks = new Array(14).fill(1).map((v, i) => v + i);
-  const bTanks = new Array(14).fill(15).map((v, i) => v + i);
-  const cTanks = new Array(14).fill(30).map((v, i) => v + i);
-  const dTanks = new Array(14).fill(45).map((v, i) => v + i);
+  const bTanks = new Array(13).fill(15).map((v, i) => v + i);
+  const cTanks = new Array(13).fill(28).map((v, i) => v + i);
+  const dTanks = new Array(10).fill(41).map((v, i) => v + i);
 
   const [limits, setLimits] = useState()
   const [timer, setTimer] = useState()
@@ -51,8 +51,9 @@ export function App() {
   }
 
   const tank = (id) => {
+    // Don't use key on the tanks. They'll redraw on all too many things then...
     return <Tank 
-      key={uuid()} 
+      // key={uuid()} 
       id={id} 
       values={data?.find(x => x.poolId === id) ?? null} 
       limits={limits?.find(x => x.poolId === id) ?? null} 
@@ -71,7 +72,8 @@ export function App() {
               </div>)
             : tank(x)
         })
-      }</div>
+        }<div className='tank-row-after'></div>
+      </div>
       <div className="tank-row">{
         bTanks.map((x, i) => {
           return i === 7 
@@ -79,14 +81,37 @@ export function App() {
                 <div key={uuid()} className="wall"></div>
                 {tank(x)}
               </div>)
-            : tank(x)
+            : i === 10 
+              ? <div key={uuid()} className='spacer-tank-wrapper'><div key={uuid()} className='spacer-tank'></div>{tank(x)}</div>
+              : tank(x)
         })
-      }</div>
-      <div className="tank-row">
-
+        }<div className='tank-row-after'></div>
       </div>
       <div className="tank-row">
-
+        {
+          cTanks.map((x, i) => {
+            return i === 7 
+              ? (<div className='wall-container' key={uuid()}>
+                  <div key={uuid()} className="wall"></div>
+                  {tank(x)}
+                </div>)
+              : i === 10 
+                ? <div key={uuid()} className='spacer-tank-wrapper'><div key={uuid()} className='spacer-tank'></div>{tank(x)}</div>
+                : tank(x)
+          })
+        }<div className='tank-row-after'></div>
+      </div>
+      <div className="tank-row">
+        <div className="spacer-tank"></div>
+        { dTanks.map((x, i) => {
+          return i === 6 
+            ? (<div className='wall-container' key={uuid()}>
+                <div key={uuid()} className="wall"></div>
+                {tank(x)}
+              </div>)
+            : tank(x)
+        }) 
+        }<div className='tank-row-after'></div>
       </div>
     </div>
   );
