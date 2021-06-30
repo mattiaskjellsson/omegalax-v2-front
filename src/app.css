@@ -1,0 +1,32 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  background-color: #282c34;
+  color: white;
+  min-height: 100vh;
+}
+
+/* align-items: center;
+  justify-content: center; */
+
+a {
+  color: #61dafb;
+  text-decoration: none;
+}
+
+.tank-row {
+  display: flex;
+  flex-direction: row; 
+}
+
+.wall-container {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+}
+
+.wall {
+  min-height: 210px;
+  min-width: 20px;
+  background-color: gray;
+}

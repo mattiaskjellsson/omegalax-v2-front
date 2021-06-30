@@ -1,0 +1,32 @@
+.tank {
+  margin-top: 10px;
+  margin-left: 10px;
+  min-width: 200px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+}
+
+.name-wrapper {
+  display: flex;
+  flex-grow: 1;
+  align-content: flex-start;
+  justify-content: center;
+}
+
+.name {
+  color: #c0d793;
+  font-size: x-large;
+}
+
+.alarm-status-wrapper {
+  display: flex;
+  flex-grow: 0;
+}
+
+.alarm-image {
+  width: 30px;
+  height: auto;
+}
