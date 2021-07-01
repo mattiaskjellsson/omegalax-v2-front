@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { FiSettings, FiThermometer, FiBarChart, FiBell, FiBellOff } from 'react-icons/fi';
+import { BsBellFill } from 'react-icons/bs';
+
 import { BiTachometer, } from 'react-icons/bi';
 
 import { Oxygen } from './oxygen/oxygen';
@@ -34,7 +36,13 @@ export function Tank({id, values, limits, onSettingsSave}) {
           <div className='name'>{tankName(id)}</div>
         </div>
         <div className='alarm-status-wrapper'>
-          { limits?.isAlarmOn ? <FiBell /> : <FiBellOff />}
+          { 
+            values?.alarming 
+            ? <BsBellFill /> 
+            : limits?.isAlarmOn 
+              ? <FiBell /> 
+              : <FiBellOff />
+          }
         </div>
       </div>
       <Tabs
