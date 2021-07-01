@@ -24,7 +24,7 @@ export function Oxygen({oxygen, limits}) {
             minValue={limit?.oxygenLow ?? 0} 
             maxValue={limit?.oxygenHigh ?? 100} 
             value={oxygen ?? 0} 
-            needleTransitionDuration={2000}
+            needleTransitionDuration={1000}
           />
         </div>
       : <></>
