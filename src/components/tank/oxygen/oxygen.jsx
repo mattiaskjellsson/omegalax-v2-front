@@ -4,12 +4,13 @@ import ReactSpeedometer from "react-d3-speedometer";
 import './oxygen.css';
 
 export function Oxygen({oxygen, limits}) {
-  const [limit, setLimit] = useState(limits)
+  const [limit, setLimit] = useState()
 
   useEffect(() => {
     if (limits)
       setLimit(limits)
   }, [limits])
+
   return (
     oxygen 
       ? <div className='oxygen-wrapper'>

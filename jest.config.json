@@ -1,0 +1,10 @@
+{
+    "transformIgnorePatterns": [
+        "node_modules/(?!(underscore|lodash-es|react-thermometer-component)/)"
+    ],
+    "transform": {
+        "^.+\\.jsx?$": "babel-jest",
+        "^.+\\.svg$": "jest-svg-transformer",
+        ".+\\.(css|sass|scss)$": "jest-css-modules-transform"
+    }
+}

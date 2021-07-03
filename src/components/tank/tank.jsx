@@ -12,18 +12,8 @@ import { Temperature } from './temperature/temperature';
 import './tank-tabs.css';
 import './tank.css';
 
-export function Tank({id, values, limits, onSettingsSave}) {
+export function Tank({id, name, values, limits, onSettingsSave}) {
   const [tabIndex, setTabIndex] = useState(0);
-
-  const tankName = (id) => {
-    return id > 0 && id < 15 
-      ? `a${id}`
-      : id >= 15 && id < 28 
-        ? `b${id-14}` 
-        : id >= 28 && id < 41
-          ? `c${id-27}`
-          : `d${id-39}`
-  }
 
   const handleSettingsSave = (settings) => {
     onSettingsSave({poolId: id, ...settings})
@@ -33,7 +23,7 @@ export function Tank({id, values, limits, onSettingsSave}) {
     <div className='tank'>
       <div className='header'>
         <div className='name-wrapper'>
-          <div className='name'>{tankName(id)}</div>
+          <div className='name'>{name}</div>
         </div>
         <div className='alarm-status-wrapper'>
           { 

@@ -16,11 +16,21 @@ export function App() {
 
   useEffect(() => {
     async function fetchLimits() {
-      setLimits(await getAllLimits())
+      try {
+        const limits = await getAllLimits()
+        setLimits(limits)
+      } catch (e) {
+        setLimits([])
+      }
     }
 
     async function fetchData() {
-      setData(await getData())
+      try {
+        const data = await getData()
+        setData(data)
+      } catch (e) {
+        setData([])
+      }
     }
 
     fetchLimits()
@@ -33,28 +43,40 @@ export function App() {
       clearInterval(timer)
     };
   }, [])
-  
 
   const handleSettingsSave = async (settings) => {
-    const r = await putLimits(settings)
-
-    const newLimits = [...limits]
-    const i = limits.findIndex(x => x.poolId === settings.poolId)
-
-    if (i >= 0) {
-      newLimits[i] = r
-    } else {
-      newLimits.push(r)
+    try {
+      const r = await putLimits(settings)
+      const newLimits = [...limits]
+      const i = limits.findIndex(x => x.poolId === settings.poolId)
+  
+      if (i >= 0) {
+        newLimits[i] = r
+      } else {
+        newLimits.push(r)
+      }
+  
+      setLimits(newLimits)
+    } catch (e) {
+      console.error(e)
     }
-
-    setLimits(newLimits)
   }
 
-  const tank = (id) => {
-    // Don't use key on the tanks. They'll redraw on all too many things then...
+  const tankName = (id) => {
+    return id > 0 && id < 15 
+      ? `a${id}`
+      : id >= 15 && id < 28 
+        ? `b${id-14}` 
+        : id >= 28 && id < 41
+          ? `c${id-27}`
+          : `d${id-39}`
+  }
+
+  const tank = (id, key) => {
     return <Tank 
-      // key={uuid()} 
-      id={id} 
+      key={key} 
+      id={id}
+      name={tankName(id)}
       values={data?.find(x => x.poolId === id) ?? null} 
       limits={limits?.find(x => x.poolId === id) ?? null} 
       onSettingsSave={handleSettingsSave}
@@ -68,9 +90,9 @@ export function App() {
           return i === 7 
             ? (<div className='wall-container' key={uuid()}>
                 <div key={uuid()} className="wall"></div>
-                {tank(x)}
+                {tank(x, i)}
               </div>)
-            : tank(x)
+            : tank(x, i)
         })
         }<div className='tank-row-after'></div>
       </div>
@@ -79,11 +101,14 @@ export function App() {
           return i === 7 
             ? (<div className='wall-container' key={uuid()}>
                 <div key={uuid()} className="wall"></div>
-                {tank(x)}
+                {tank(x, i)}
               </div>)
             : i === 10 
-              ? <div key={uuid()} className='spacer-tank-wrapper'><div key={uuid()} className='spacer-tank'></div>{tank(x)}</div>
-              : tank(x)
+              ? <div key={uuid()} className='spacer-tank-wrapper'>
+                  <div key={uuid()} className='spacer-tank'></div>
+                  {tank(x, i)}
+                </div>
+              : tank(x, i)
         })
         }<div className='tank-row-after'></div>
       </div>
@@ -93,11 +118,14 @@ export function App() {
             return i === 7 
               ? (<div className='wall-container' key={uuid()}>
                   <div key={uuid()} className="wall"></div>
-                  {tank(x)}
+                  {tank(x, i)}
                 </div>)
               : i === 10 
-                ? <div key={uuid()} className='spacer-tank-wrapper'><div key={uuid()} className='spacer-tank'></div>{tank(x)}</div>
-                : tank(x)
+                ? <div key={uuid()} className='spacer-tank-wrapper'>
+                    <div key={uuid()} className='spacer-tank'></div>
+                    {tank(x, i)}
+                  </div>
+                : tank(x, i)
           })
         }<div className='tank-row-after'></div>
       </div>
@@ -107,9 +135,9 @@ export function App() {
           return i === 6 
             ? (<div className='wall-container' key={uuid()}>
                 <div key={uuid()} className="wall"></div>
-                {tank(x)}
+                {tank(x, i)}
               </div>)
-            : tank(x)
+            : tank(x, i)
         }) 
         }<div className='tank-row-after'></div>
       </div>
