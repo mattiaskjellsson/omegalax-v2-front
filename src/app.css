@@ -6,6 +6,12 @@
   min-height: 100vh;
 }
 
+.error-container {
+  color: #e63535;
+  font-weight: 600;
+  font-size: larger;
+}
+
 a {
   color: #61dafb;
   text-decoration: none;

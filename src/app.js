@@ -1,16 +1,12 @@
 import './app.css';
-import './truck.css';
 import React, { useEffect, useState } from 'react'
 import Tank from './components/tank';
-import { v4 as uuid } from 'uuid';
 import { putLimits, getAllLimits, getData } from './actions/api';
-
-import cockpit from './assets/cockpit.svg';
-import wheel from './assets/wheel.svg';
 
 export function App() {
   const aTanks = new Array(5).fill(1).map((v, i) => v + i);
-  const bTanks = new Array(5).fill(15).map((v, i) => v + i);
+  const bTanks = new Array(5).fill(6).map((v, i) => v + i);
+  const updateInterval = 10000;
 
   const [limits, setLimits] = useState()
   const [timer, setTimer] = useState()
@@ -44,7 +40,7 @@ export function App() {
     fetchData() 
     setTimer(setInterval(() => {
       fetchData()
-    }, 10000))
+    }, updateInterval))
 
     return function cleanup() {
       clearInterval(timer)
@@ -70,19 +66,14 @@ export function App() {
   }
 
   const tankName = (id) => {
-    return id > 0 && id < 15 
-      ? `a${id}`
-      : id >= 15 && id < 28 
-        ? `b${id-14}` 
-        : id >= 28 && id < 41
-          ? `c${id-27}`
-          : `d${id-39}`
+    return `L${id}`
   }
 
   const tank = (id, key) => {
     return <Tank 
       key={key} 
       id={id}
+      updateInterval={updateInterval}
       name={tankName(id)}
       values={data?.find(x => x.poolId === id) ?? null} 
       limits={limits?.find(x => x.poolId === id) ?? null} 
@@ -92,52 +83,16 @@ export function App() {
 
   return (
     <div className="app">
-      <div className="truck">
-        <div className="front">
-          <div className="front-spacer">
-            <div className="error-container">
-              {error?.message }
-            </div>
-          </div>
-          <div className="cockpit">
-            <img src={cockpit} alt="cockpit" />
-          </div>
-        </div>
-        <div className='trailer'>
-          <div className="tank-row">{
-            aTanks.map((x, i) => {
-              return i === 7 
-                ? (<div className='wall-container' key={uuid()}>
-                    <div key={uuid()} className="wall"></div>
-                    {tank(x, i)}
-                  </div>)
-                : tank(x, i)
-            })
-            }<div className='tank-row-after'></div>
-          </div>
-          <div className="tank-row">{
-          bTanks.map((x, i) => {
-            return i === 7 
-              ? (<div className='wall-container' key={uuid()}>
-                  <div key={uuid()} className="wall"></div>
-                  {tank(x, i)}
-                </div>)
-              : i === 10 
-                ? <div key={uuid()} className='spacer-tank-wrapper'>
-                    <div key={uuid()} className='spacer-tank'></div>
-                    {tank(x, i)}
-                  </div>
-                : tank(x, i)
-          })
-          }<div className='tank-row-after'></div>
-        </div>
-          <div className='wheel-container'>
-            <img className='wheel' src={wheel} alt='wheel' />
-            <div className='spacer'></div>
-            <img className='wheel' src={wheel} alt='wheels' />
-            <img className='wheel' src={wheel} alt='wheels' />
-          </div>
-        </div>
+      <div className="tank-row">
+        <div className="error-container">{ error?.message }</div>
+      </div>
+      <div className="tank-row">
+        { aTanks.map((x, i) => tank(x, i)) }
+        <div className='tank-row-after'></div>
+      </div>
+      <div className="tank-row">
+        { bTanks.map((x, i) => tank(x, i)) }
+        <div className='tank-row-after'></div>
       </div>
     </div>
   );

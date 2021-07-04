@@ -3,16 +3,17 @@ import ReactSpeedometer from "react-d3-speedometer";
 
 import './oxygen.css';
 
-export function Oxygen({oxygen, limits}) {
+export function Oxygen({oxygen, limits, updateInterval}) {
+  const animationDuration = 1000
   const [limit, setLimit] = useState()
   const [value, setValue] = useState()
 
   useEffect(() => {
-    const timeout = Math.floor(Math.random() * 1001);
-    setTimeout(() => {
-      setValue(oxygen)
-    }, timeout)
-  }, [oxygen])
+    const timeout = Math.floor(Math.random() * Math.max([updateInterval-animationDuration, 0]))
+    setTimeout(() => { 
+      setValue(oxygen);
+     }, timeout);
+  }, [oxygen, updateInterval])
 
   useEffect(() => {
     if (limits)
@@ -32,8 +33,8 @@ export function Oxygen({oxygen, limits}) {
             maxSegmentLabels={5}
             minValue={limit?.oxygenLow ?? 0} 
             maxValue={limit?.oxygenHigh ?? 200} 
-            value={ value } 
-            needleTransitionDuration={1000}
+            value={value} 
+            needleTransitionDuration={animationDuration}
           />
         </div>
       : <></>

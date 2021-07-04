@@ -12,7 +12,7 @@ import { Temperature } from './temperature/temperature';
 import './tank-tabs.css';
 import './tank.css';
 
-export function Tank({id, name, values, limits, onSettingsSave}) {
+export function Tank({id, name, updateInterval, values, limits, onSettingsSave}) {
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleSettingsSave = (settings) => {
@@ -65,9 +65,12 @@ export function Tank({id, name, values, limits, onSettingsSave}) {
             </div>
           </Tab>
         </TabList>
-
-        <TabPanel style={ values?.alarming ? { backgroundColor: '#F68787'} : { backgroundColor: 'whitesmoke'} }>
-          <Oxygen oxygen={values?.oxygen ?? null} limits={limits}/>
+        <TabPanel>
+          <Oxygen 
+            oxygen={values?.oxygen ?? null} 
+            limits={limits}
+            updateInterval={updateInterval}
+          />
         </TabPanel>
         <TabPanel>
           <Temperature value={values?.temperature ?? null } />

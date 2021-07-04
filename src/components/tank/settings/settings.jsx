@@ -16,13 +16,13 @@ export function Settings({limits, onSave}) {
     <form onSubmit={mySubmit}>
       <div className='f c mt-8'>
         <label className='input-label' htmlFor='oxygenLow'>Low oxygen limit</label>
-        <input defaultValue={limits?.oxygenLow} {...register('oxygenLow', { required: true })} type='number'/>
+        <input defaultValue={limits?.oxygenLow} {...register('oxygenLow', { required: true, min: 0, max: 999 })} type='number'/>
         {errors.oxygenLow && <div className='error-message'>This field is required</div>}
       </div>
 
       <div className='f c mt-8'>
         <label className='input-label' htmlFor='oxygenHigh'>High oxygen limit</label>
-        <input defaultValue={limits?.oxygenHigh} {...register('oxygenHigh', { required: true })} type='number' />
+        <input defaultValue={limits?.oxygenHigh} {...register('oxygenHigh', { required: true, min: 0, max: 999 })} type='number' />
         {errors.oxygenHigh && <div className='error-message'>This field is required</div>}
       </div>
 
@@ -32,7 +32,7 @@ export function Settings({limits, onSave}) {
       </div>
 
       <div className='f r mt-8'>
-        <input type="submit" />
+        <input className="button" type="submit" value="Save" />
       </div>
     </form>
     </div>
