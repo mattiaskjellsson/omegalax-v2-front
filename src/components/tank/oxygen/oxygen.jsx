@@ -5,6 +5,14 @@ import './oxygen.css';
 
 export function Oxygen({oxygen, limits}) {
   const [limit, setLimit] = useState()
+  const [value, setValue] = useState()
+
+  useEffect(() => {
+    const timeout = Math.floor(Math.random() * 1001);
+    setTimeout(() => {
+      setValue(oxygen)
+    }, timeout)
+  }, [oxygen])
 
   useEffect(() => {
     if (limits)
@@ -24,7 +32,7 @@ export function Oxygen({oxygen, limits}) {
             maxSegmentLabels={5}
             minValue={limit?.oxygenLow ?? 0} 
             maxValue={limit?.oxygenHigh ?? 200} 
-            value={oxygen ?? 0} 
+            value={ value } 
             needleTransitionDuration={1000}
           />
         </div>

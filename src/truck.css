@@ -1,0 +1,52 @@
+.truck {
+  display: flex;
+  flex-direction: row;
+}
+
+.front {
+  display: flex;
+  flex-direction: column;
+}
+
+.front-spacer {
+  margin-top:30px;
+  margin-bottom: -30px;
+  min-height: 354px;
+  background: url('./assets/vertical_spacer.svg');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-container {
+  font-weight: 600;
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cockpit {
+  margin-left: 8px;
+}
+
+
+.wheel-container {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  margin-left: -1px;
+}
+
+/* Image */
+.wheel {
+  margin-left: -1px;
+}
+
+.spacer {
+  margin-top: 24px;
+  margin-left: -1px;
+  background: url('./assets/spacer.svg');
+  flex-grow: 1;
+  background-repeat: repeat-x;
+}
