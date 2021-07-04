@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { putLimits, getAllLimits, getData } from './actions/api';
 
 export function App() {
+  const updateInterval = 10000;
   const aTanks = new Array(14).fill(1).map((v, i) => v + i);
   const bTanks = new Array(13).fill(15).map((v, i) => v + i);
   const cTanks = new Array(13).fill(28).map((v, i) => v + i);
@@ -37,7 +38,7 @@ export function App() {
     fetchData() 
     setTimer(setInterval(() => {
       fetchData()
-    }, 10000))
+    }, updateInterval))
 
     return function cleanup() {
       clearInterval(timer)
@@ -76,6 +77,7 @@ export function App() {
     return <Tank 
       key={key} 
       id={id}
+      updateInterval={updateInterval}
       name={tankName(id)}
       values={data?.find(x => x.poolId === id) ?? null} 
       limits={limits?.find(x => x.poolId === id) ?? null} 
