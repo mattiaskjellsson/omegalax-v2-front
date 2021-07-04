@@ -1,3 +1,20 @@
+.overlay:after {
+  content: "Loading...";
+  color:whitesmoke;
+  font-size: larger;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  position: absolute;
+  height: 215px;
+  width: 200px;
+  margin-left: -8px;
+  margin-top: -12px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
 .input-label {
   font-size: medium;
 }
@@ -22,10 +39,17 @@
   background-color: #8AA060;
 }
 
+.button:focus-visible,
+.button:focus {
+  outline: rgba(192, 215, 17, .3);
+}
+
 .f { display: flex; }
 .c { flex-direction: column; }
 .r { flex-direction: row; }
-.mt-8 { margin-top: 4px }
+.m { align-items: center;}
+.mt-8 { margin-top: 4px; }
+.mb-8 { margin-bottom: 8px; }
 
 input[type='number'], 
 input[type='checkbox'] {
