@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const transport = axios.create({
-  baseURL: `${process.env.REACT_APP_API_PROTOCOL}://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/`
+  baseURL: `${process.env.REACT_APP_API_PROTOCOL}://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/`
 })
 
 export const getAllLimits = async () => {
