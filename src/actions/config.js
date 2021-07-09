@@ -7,12 +7,12 @@ const configProduction = {
 const configDevelopment = {
   API_PROTOCOL: 'http',
   API_HOST: 'localhost',
-  API_PORT: '3000',  
+  API_PORT: '3001',  
 };
 
 const config = 
   process.env.NODE_ENV === 'production' 
   ? configProduction 
-  : configDevelopment
+  : configDevelopment ?? configProduction;
 
 module.exports = config;
