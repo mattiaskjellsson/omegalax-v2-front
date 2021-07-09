@@ -10,7 +10,9 @@ const configDevelopment = {
   API_PORT: '3000',  
 };
 
-exports.module = config = 
+const config = 
   process.env.NODE_ENV === 'production' 
   ? configProduction 
-  : configDevelopment;
+  : configDevelopment
+
+module.exports = config;
