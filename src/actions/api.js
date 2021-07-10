@@ -24,3 +24,8 @@ export const getData = async () => {
   const result = await transport.get(`data`)
   return result.data;
 }
+
+export const getHistory = async (poolId) => {
+  const result = await transport.get(`data/history/${poolId}/`)
+  return result.data;
+}

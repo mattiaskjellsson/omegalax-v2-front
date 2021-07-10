@@ -5,18 +5,33 @@ import { BsBellFill } from 'react-icons/bs';
 
 import { BiTachometer, } from 'react-icons/bi';
 
+import Overlay from "react-overlay-component";
 import { Oxygen } from './oxygen/oxygen';
 import { Settings } from './settings/settings';
 import { Temperature } from './temperature/temperature';
+import { History } from './history/history';
 
 import './tank-tabs.css';
 import './tank.css';
 
 export function Tank({id, name, updateInterval, values, limits, onSettingsSave}) {
   const [tabIndex, setTabIndex] = useState(0);
+  const [isOpen, setOverlay] = useState(false);
 
   const handleSettingsSave = (settings) => {
     onSettingsSave({poolId: id, ...settings})
+  }
+
+  const handleTabChange = (index, lastIndex) => {
+    setTabIndex(index)
+    if (index === 2) {
+      setOverlay(true)  
+    }
+  }
+
+  const closeOverlay = () => {
+    setTabIndex(0)
+    setOverlay(false)   
   }
 
   return (
@@ -37,7 +52,7 @@ export function Tank({id, name, updateInterval, values, limits, onSettingsSave})
       </div>
       <Tabs
         selectedIndex={tabIndex} 
-        onSelect={index => setTabIndex(index) }
+        onSelect={handleTabChange}
       >
         <TabList>
           <Tab>
@@ -52,7 +67,7 @@ export function Tank({id, name, updateInterval, values, limits, onSettingsSave})
               <div className='tab-name'>Temp.</div>
             </div>
           </Tab>
-          <Tab disabled={true}>
+          <Tab>
             <div className='tab-wrapper'>
               <FiBarChart size={28} />
               <div className='tab-name'>History</div>
@@ -86,12 +101,22 @@ export function Tank({id, name, updateInterval, values, limits, onSettingsSave})
           <Temperature value={values?.temperature ?? null } />
         </TabPanel>
         <TabPanel>
-          Any content 3
         </TabPanel>
         <TabPanel>
           <Settings limits={limits} onSave={handleSettingsSave}/>
         </TabPanel>
       </Tabs>
+      <Overlay configs={{
+          animate: true,
+          clickDismiss: false,
+          escapeDismiss: false,
+          focusOutline: false,
+        }} 
+        isOpen={isOpen} 
+        closeOverlay={closeOverlay}
+      >
+        <History poolId={id} />
+      </Overlay>
     </div>
   );
 }
