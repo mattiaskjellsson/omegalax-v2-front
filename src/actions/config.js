@@ -1,6 +1,6 @@
 const production = {
   API_PROTOCOL: 'http',
-  API_HOST: 'back',
+  API_HOST: 'localhost',
   API_PORT: 3000,
 };
 
