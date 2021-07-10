@@ -3,10 +3,11 @@ import ReactSpeedometer from "react-d3-speedometer";
 
 import './oxygen.css';
 
-export function Oxygen({oxygen, limits, updateInterval}) {
+export function Oxygen({oxygen, alarming, limits, updateInterval}) {
   const animationDuration = 1000
   const [limit, setLimit] = useState()
   const [value, setValue] = useState()
+  const [meterStyle, setMeterStyle] = useState()
 
   useEffect(() => {
     const timeout = Math.floor(Math.random() * Math.max([updateInterval-animationDuration, 0]))
@@ -20,9 +21,16 @@ export function Oxygen({oxygen, limits, updateInterval}) {
       setLimit(limits)
   }, [limits])
 
+  useEffect(() => {
+    if (alarming !== null)
+      setMeterStyle({
+        backgroundColor: alarming ? '#e63535' : 'whitesmoke'
+      })
+  }, [alarming])
+
   return (
     oxygen 
-      ? <div className='oxygen-wrapper'>
+      ? <div className='oxygen-wrapper' style={meterStyle}>
           <ReactSpeedometer
             className='oxygen-meter'
             height={200}

@@ -67,7 +67,8 @@ export function Tank({id, name, updateInterval, values, limits, onSettingsSave})
         </TabList>
         <TabPanel>
           <Oxygen 
-            oxygen={values?.oxygen ?? null} 
+            oxygen={values?.oxygen ?? null}
+            alarming={values?.alarming ? true : false ?? false}
             limits={limits}
             updateInterval={updateInterval}
           />
