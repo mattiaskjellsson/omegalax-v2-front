@@ -1,6 +1,6 @@
 const production = {
   API_PROTOCOL: 'http',
-  API_HOST: 'mongo_lax',
+  API_HOST: 'back',
   API_PORT: 3000,
 };
 
