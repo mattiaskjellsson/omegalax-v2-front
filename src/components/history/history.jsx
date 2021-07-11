@@ -62,6 +62,7 @@ export function History({poolId, display, close, poolName}) {
     }); 
 
     return () => {}
+  // eslint-disable-next-line
   }, [])
 
   return (

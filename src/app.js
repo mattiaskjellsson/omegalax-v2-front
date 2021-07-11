@@ -1,8 +1,10 @@
 import './app.css';
 import React, { useEffect, useState } from 'react'
-import Tank from './components/tank';
-import { putLimits, getAllLimits, getData } from './actions/api';
 import { v4 as uuid } from 'uuid';
+import CircleLoader from "react-spinners/ClipLoader";
+import Tank from './components/tank';
+
+import { putLimits, getAllLimits, getData } from './actions/api';
 
 export function App() {
   const aTanks = new Array(14).fill(1).map((v, i) => v + i);
@@ -16,16 +18,17 @@ export function App() {
   const [timer, setTimer] = useState()
   const [data, setData] = useState()
   const [error, setError] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     async function fetchLimits() {
       try {
         const limits = await getAllLimits()
-        setLimits(limits)
         setError({ message: null })
+        return limits
       } catch (e) {
         setError({ message: `${e.message}` })
-        setLimits([])
+        return []
       }
     }
 
@@ -33,22 +36,39 @@ export function App() {
       try {
         const data = await getData()
         setError({ message: null })
-        setData(data)
+        return data
       } catch (e) {
         setError({ message: `${e.message}` })
-        setData([])
+        return[]
       }
     }
 
-    fetchLimits()
-    fetchData() 
-    setTimer(setInterval(() => {
-      fetchData()
+    async function start() {
+      try {
+        setIsLoading(true)
+        const data = await fetchData()
+        const limits = await fetchLimits()
+        setData(data)
+        setLimits(limits)
+      } catch (e) {
+        setData([])
+        setLimits([])
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    start()
+
+    setTimer(setInterval(async () => {
+      const data = await fetchData()
+      setData(data)
     }, updateInterval))
 
     return function cleanup() {
       clearInterval(timer)
     };
+  // eslint-disable-next-line
   }, [])
 
   const handleSettingsSave = async (settings) => {
@@ -92,37 +112,27 @@ export function App() {
   }
 
   return (
-    <div className="app">
-      <div className="tank-row">{
-        aTanks.map((x, i) => {
-          return i === 7 
-            ? (<div className='wall-container' key={uuid()}>
-                <div key={uuid()} className="wall"></div>
-                {tank(x, i)}
-              </div>)
-            : tank(x, i)
-        })
-        }<div className='tank-row-after'></div>
-      </div>
-      <div className="tank-row">{
-        bTanks.map((x, i) => {
-          return i === 7 
-            ? (<div className='wall-container' key={uuid()}>
-                <div key={uuid()} className="wall"></div>
-                {tank(x, i)}
-              </div>)
-            : i === 10 
-              ? <div key={uuid()} className='spacer-tank-wrapper'>
-                  <div key={uuid()} className='spacer-tank'></div>
+    isLoading
+     ?(<div className='app-overlay-loading'>
+      <CircleLoader color={'#ddd'} size={150} />
+      </div>) 
+     :<div className="app">
+        <div className="error-container">
+          <div className="error-message">{error.message}</div>
+        </div>
+        <div className="tank-row">{
+          aTanks.map((x, i) => {
+            return i === 7 
+              ? (<div className='wall-container' key={uuid()}>
+                  <div key={uuid()} className="wall"></div>
                   {tank(x, i)}
-                </div>
+                </div>)
               : tank(x, i)
-        })
-        }<div className='tank-row-after'></div>
-      </div>
-      <div className="tank-row">
-        {
-          cTanks.map((x, i) => {
+          })
+          }<div className='tank-row-after'></div>
+        </div>
+        <div className="tank-row">{
+          bTanks.map((x, i) => {
             return i === 7 
               ? (<div className='wall-container' key={uuid()}>
                   <div key={uuid()} className="wall"></div>
@@ -135,20 +145,37 @@ export function App() {
                   </div>
                 : tank(x, i)
           })
-        }<div className='tank-row-after'></div>
+          }<div className='tank-row-after'></div>
+        </div>
+        <div className="tank-row">
+          {
+            cTanks.map((x, i) => {
+              return i === 7 
+                ? (<div className='wall-container' key={uuid()}>
+                    <div key={uuid()} className="wall"></div>
+                    {tank(x, i)}
+                  </div>)
+                : i === 10 
+                  ? <div key={uuid()} className='spacer-tank-wrapper'>
+                      <div key={uuid()} className='spacer-tank'></div>
+                      {tank(x, i)}
+                    </div>
+                  : tank(x, i)
+            })
+          }<div className='tank-row-after'></div>
+        </div>
+        <div className="tank-row">
+          <div className="spacer-tank"></div>
+          { dTanks.map((x, i) => {
+            return i === 6 
+              ? (<div className='wall-container' key={uuid()}>
+                  <div key={uuid()} className="wall"></div>
+                  {tank(x, i)}
+                </div>)
+              : tank(x, i)
+          }) 
+          }<div className='tank-row-after'></div>
+        </div>
       </div>
-      <div className="tank-row">
-        <div className="spacer-tank"></div>
-        { dTanks.map((x, i) => {
-          return i === 6 
-            ? (<div className='wall-container' key={uuid()}>
-                <div key={uuid()} className="wall"></div>
-                {tank(x, i)}
-              </div>)
-            : tank(x, i)
-        }) 
-        }<div className='tank-row-after'></div>
-      </div>
-    </div>
   );
 }

@@ -7,13 +7,16 @@ export function Oxygen({oxygen, alarming, limits, updateInterval}) {
   const animationDuration = 1000
   const [limit, setLimit] = useState()
   const [value, setValue] = useState()
-  const [meterStyle, setMeterStyle] = useState()
 
   useEffect(() => {
-    const timeout = Math.floor(Math.random() * Math.max([updateInterval-animationDuration, 0]))
-    setTimeout(() => { 
+    const interval = Math.floor(Math.random() * Math.max([updateInterval-animationDuration, 0]))
+    const timeout = setTimeout(() => { 
       setValue(oxygen);
-     }, timeout);
+     }, interval);
+
+     return () => {
+       clearTimeout(timeout);
+     }
   }, [oxygen, updateInterval])
 
   useEffect(() => {
