@@ -1,6 +1,7 @@
 import React, { useEffect, useState }from 'react';
 import Chart from "react-google-charts";
 import {getHistory} from '../../actions/api';
+import CircleLoader from "react-spinners/ClipLoader";
 import './history.css';
 
 export function History({poolId, display, close, poolName}) {
@@ -65,35 +66,42 @@ export function History({poolId, display, close, poolName}) {
 
   return (
     <div className='overlay' style={{display: display}} onClick={close}>
-      {isLoading 
-        ? <div>Loading...</div> 
-        : <div className='overlay-content' onClick={()=>{}}>
+        <div className='overlay-content' onClick={()=>{}}>
             <div className='overlay-header'>
               <span>Historical values {poolName}</span>
             </div>
-            <div className='chart-container'>
+            { 
+              isLoading 
+              ? <div className='loading-container'>
+                <CircleLoader color={'#282c34'} size={150} />
+              </div>
+              : <><div className='chart-container'>
+                <Chart
+                  width={'100%'}
+                  height={'100%'}
+                  chartType="LineChart"
+                  loader={<div className='loading-container'>
+                    <CircleLoader color={'#282c34'} size={75} />
+                  </div>}
+                  data={oxygen}
+                  options={{
+                    title: 'Oxygen, min/avg/max',
+                    curveType: 'function',
+                    series: [{ color: '#4CD1D9' }],
+                    intervals: { style: 'bars' },
+                    legend: 'none',
+                  }}
+                  rootProps={{ 'data-testid': '3' }}
+                />
+              </div>
+              <div className='chart-container'>
               <Chart
                 width={'100%'}
                 height={'100%'}
                 chartType="LineChart"
-                loader={<div>Loading Chart</div>}
-                data={oxygen}
-                options={{
-                  title: 'Oxygen, min/avg/max',
-                  curveType: 'function',
-                  series: [{ color: '#4CD1D9' }],
-                  intervals: { style: 'bars' },
-                  legend: 'none',
-                }}
-                rootProps={{ 'data-testid': '3' }}
-              />
-            </div>
-            <div className='chart-container'>
-              <Chart
-                width={'100%'}
-                height={'100%'}
-                chartType="LineChart"
-                loader={<div>Loading Chart</div>}
+                loader={<div className='loading-container'>
+                  <CircleLoader color={'#282c34'} size={75} />
+                </div>}
                 data={temperature}
                 options={{
                   title: 'Temperature, min/max',
@@ -105,8 +113,9 @@ export function History({poolId, display, close, poolName}) {
                 rootProps={{ 'data-testid': '3' }}
               />
             </div>
+              </>
+            }
         </div>
-      }
     </div> 
   )
 }

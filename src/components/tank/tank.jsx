@@ -85,7 +85,7 @@ export function Tank({id, name, updateInterval, values, limits, onSettingsSave})
           style={
             {
               backgroundColor: values?.alarming 
-                ? '#e63535' 
+                ? '#f5cece' 
                 : '#f5f5f5'
             }
           }

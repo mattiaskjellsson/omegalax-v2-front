@@ -17,9 +17,8 @@
   flex-direction: column;
   background-color: white;
   border-radius: 8px;
-  border: 1px solid #333;
   padding-bottom: 8px;
-  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.1);
+  box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.1);
 }
 
 .overlay-header {
@@ -32,6 +31,22 @@
   text-align: center;
   color: white;
   padding: 8px;
+}
+
+.overlay-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 75vw;
+  padding: 32px;
 }
 
 .overlay-header span {
