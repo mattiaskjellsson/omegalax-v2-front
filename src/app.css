@@ -1,8 +1,5 @@
 .app {
   display: flex;
-  /* align-content: center;
-  justify-content: center;
-  align-items: center; */
   flex-direction: column;
   background-color: #282c34;
   color: white;
