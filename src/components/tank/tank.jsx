@@ -5,17 +5,17 @@ import { BsBellFill } from 'react-icons/bs';
 
 import { BiTachometer, } from 'react-icons/bi';
 
-import Overlay from "react-overlay-component";
 import { Oxygen } from './oxygen/oxygen';
 import { Settings } from './settings/settings';
 import { Temperature } from './temperature/temperature';
-import { History } from './history/history';
+import { History } from '../history/history';
 
 import './tank-tabs.css';
 import './tank.css';
 
 export function Tank({id, name, updateInterval, values, limits, onSettingsSave}) {
   const [tabIndex, setTabIndex] = useState(0);
+  const [lastTabIndex, setLastTabIndex] = useState(0)
   const [isOpen, setOverlay] = useState(false);
 
   const handleSettingsSave = (settings) => {
@@ -24,13 +24,14 @@ export function Tank({id, name, updateInterval, values, limits, onSettingsSave})
 
   const handleTabChange = (index, lastIndex) => {
     setTabIndex(index)
+    setLastTabIndex(lastIndex)
     if (index === 2) {
       setOverlay(true)  
     }
   }
 
   const closeOverlay = () => {
-    setTabIndex(0)
+    setTabIndex(lastTabIndex)
     setOverlay(false)   
   }
 
@@ -80,7 +81,6 @@ export function Tank({id, name, updateInterval, values, limits, onSettingsSave})
             </div>
           </Tab>
         </TabList>
-
         <TabPanel 
           style={
             {
@@ -101,22 +101,17 @@ export function Tank({id, name, updateInterval, values, limits, onSettingsSave})
           <Temperature value={values?.temperature ?? null } />
         </TabPanel>
         <TabPanel>
+          <History 
+            poolId={id} 
+            display={isOpen} 
+            close={closeOverlay} 
+            poolName={name}
+          />
         </TabPanel>
         <TabPanel>
           <Settings limits={limits} onSave={handleSettingsSave}/>
         </TabPanel>
-      </Tabs>
-      <Overlay configs={{
-          animate: true,
-          clickDismiss: false,
-          escapeDismiss: false,
-          focusOutline: false,
-        }} 
-        isOpen={isOpen} 
-        closeOverlay={closeOverlay}
-      >
-        <History poolId={id} />
-      </Overlay>
+      </Tabs>      
     </div>
   );
 }

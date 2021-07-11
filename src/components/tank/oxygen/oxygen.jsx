@@ -29,11 +29,11 @@ export function Oxygen({oxygen, limits, updateInterval}) {
             width={150}
             ringWidth={24}
             segments={7}
-            segmentColors={['#e63535', '#e6ae35', '#e0e635', '#64e635', '#e0e635', '#e6ae35', '#e63535']}
+            segmentColors={['#e63535', '#e6ae35', '#e0e635', '#5bb839', '#e0e635', '#e6ae35', '#e63535']}
             maxSegmentLabels={5}
             minValue={limit?.oxygenLow ?? 0} 
             maxValue={limit?.oxygenHigh ?? 200} 
-            value={value} 
+            value={value ?? 0} 
             needleTransitionDuration={animationDuration}
           />
         </div>
