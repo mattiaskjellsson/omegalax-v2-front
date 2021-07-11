@@ -1,26 +1,30 @@
 import './app.css';
 import React, { useEffect, useState } from 'react'
 import Tank from './components/tank';
-import { v4 as uuid } from 'uuid';
 import { putLimits, getAllLimits, getData } from './actions/api';
+import { v4 as uuid } from 'uuid';
 
 export function App() {
-  const updateInterval = 10000;
   const aTanks = new Array(14).fill(1).map((v, i) => v + i);
   const bTanks = new Array(13).fill(15).map((v, i) => v + i);
   const cTanks = new Array(13).fill(28).map((v, i) => v + i);
   const dTanks = new Array(10).fill(41).map((v, i) => v + i);
 
+  const updateInterval = 10000;
+
   const [limits, setLimits] = useState()
   const [timer, setTimer] = useState()
   const [data, setData] = useState()
+  const [error, setError] = useState({})
 
   useEffect(() => {
     async function fetchLimits() {
       try {
         const limits = await getAllLimits()
         setLimits(limits)
+        setError({ message: null })
       } catch (e) {
+        setError({ message: `${e.message}` })
         setLimits([])
       }
     }
@@ -28,8 +32,10 @@ export function App() {
     async function fetchData() {
       try {
         const data = await getData()
+        setError({ message: null })
         setData(data)
       } catch (e) {
+        setError({ message: `${e.message}` })
         setData([])
       }
     }

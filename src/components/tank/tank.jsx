@@ -81,18 +81,10 @@ export function Tank({id, name, updateInterval, values, limits, onSettingsSave})
             </div>
           </Tab>
         </TabList>
-        <TabPanel 
-          style={
-            {
-              backgroundColor: values?.alarming 
-                ? '#f5cece' 
-                : '#f5f5f5'
-            }
-          }
-        >
-          <Oxygen
-            oxygen={values?.oxygen ?? null} 
-            alarming={values?.alarming ? true : false ?? false }
+        <TabPanel style={{ backgroundColor: values?.alarming ? '#f5cece' : 'whitesmoke' }}>
+          <Oxygen 
+            oxygen={values?.oxygen ?? null}
+            alarming={values?.alarming ? true : false ?? false}
             limits={limits}
             updateInterval={updateInterval}
           />

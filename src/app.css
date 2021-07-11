@@ -1,9 +1,18 @@
 .app {
   display: flex;
+  /* align-content: center;
+  justify-content: center;
+  align-items: center; */
   flex-direction: column;
   background-color: #282c34;
   color: white;
   min-height: 100vh;
+}
+
+.error-container {
+  color: #e63535;
+  font-weight: 600;
+  font-size: larger;
 }
 
 a {
