@@ -1,7 +1,7 @@
 const production = {
   API_PROTOCOL: 'http',
-  API_HOST: process.env.NODE_ENV.API_HOST ?? 'back',
-  API_PORT: process.env.NODE_ENV.API_PORT ?? 3000,
+  API_HOST: '139.162.180.253',
+  API_PORT: 3000,
 };
 
 const development = {
