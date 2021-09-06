@@ -1,4 +1,4 @@
-import React, { useEffect, useState }from 'react';
+import React, { useEffect, useState } from 'react';
 import Chart from "react-google-charts";
 import {getHistory} from '../../actions/api';
 import CircleLoader from "react-spinners/ClipLoader";

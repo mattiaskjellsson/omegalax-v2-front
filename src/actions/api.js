@@ -17,15 +17,20 @@ export const getLimits = async (id) => {
 
 export const putLimits = async (data) => {
   const result = await transport.put(`limits`, data)
-  return result.data;
+  return result.data
 }
 
 export const getData = async () => {
   const result = await transport.get(`data`)
-  return result.data;
+  return result.data
 }
 
 export const getHistory = async (poolId) => {
   const result = await transport.get(`data/history/${poolId}/`)
-  return result.data;
+  return result.data
+}
+
+export const login = async (password) => {
+  const result = await transport.post(`login`,{username: '', password})
+  return result.data
 }

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { v4 as uuid } from 'uuid';
 import CircleLoader from "react-spinners/ClipLoader";
 import Tank from './components/tank';
-
-import { putLimits, getAllLimits, getData } from './actions/api';
+import { Login } from './components/login/login';
+import { putLimits, getAllLimits, getData, login } from './actions/api';
 
 export function App() {
   const aTanks = new Array(14).fill(1).map((v, i) => v + i);
@@ -19,6 +19,8 @@ export function App() {
   const [data, setData] = useState()
   const [error, setError] = useState({})
   const [isLoading, setIsLoading] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isDisplayingLogin, setIsDisplayingLogin] = useState(false)
 
   useEffect(() => {
     async function fetchLimits() {
@@ -46,10 +48,18 @@ export function App() {
     async function start() {
       try {
         setIsLoading(true)
+
         const data = await fetchData()
         const limits = await fetchLimits()
+
         setData(data)
         setLimits(limits)
+
+        setTimer(setInterval(async () => {
+          const data = await fetchData()
+          setData(data)
+        }, updateInterval))
+
       } catch (e) {
         setData([])
         setLimits([])
@@ -59,11 +69,6 @@ export function App() {
     }
 
     start()
-
-    setTimer(setInterval(async () => {
-      const data = await fetchData()
-      setData(data)
-    }, updateInterval))
 
     return function cleanup() {
       clearInterval(timer)
@@ -111,12 +116,28 @@ export function App() {
     />
   }
 
+  const handleLogin = (password) => {
+    setIsLoading(true)
+    login(password)
+      .then((r) => {
+        console.log(r)
+        setIsLoggedIn(r)
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }
+
   return (
     isLoading
      ?(<div className='app-overlay-loading'>
       <CircleLoader color={'#ddd'} size={150} />
       </div>) 
-     :<div className="app">
+     : isLoggedIn 
+     ? <div className="app">
         <div className="error-container">
           <div className="error-message">{error.message}</div>
         </div>
@@ -177,5 +198,13 @@ export function App() {
           }<div className='tank-row-after'></div>
         </div>
       </div>
+      : <div>
+      <Login close={() => setIsDisplayingLogin(false)} 
+            onLogin={handleLogin}
+            isLoading={isLoading}
+      />
+      </div>
   );
+
+  
 }
