@@ -4,8 +4,8 @@ import Tank from './components/tank';
 import { putLimits, getAllLimits, getData } from './actions/api';
 
 export function App() {
-  const aTanks = new Array(5).fill(1).map((v, i) => v + i);
-  const bTanks = new Array(5).fill(6).map((v, i) => v + i);
+  const aTanks = new Array(5).fill(61).map((v, i) => v + i);
+  const bTanks = new Array(5).fill(66).map((v, i) => v + i);
   const updateInterval = 10000;
 
   const [limits, setLimits] = useState()
