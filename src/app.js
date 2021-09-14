@@ -66,7 +66,7 @@ export function App() {
   }
 
   const tankName = (id) => {
-    return `L${id}`
+    return `L${id-60}`
   }
 
   const tank = (id, key) => {
