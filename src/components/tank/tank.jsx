@@ -35,21 +35,22 @@ export function Tank({id, name, updateInterval, values, limits, onSettingsSave})
     setOverlay(false)   
   }
 
+  const alarmDisplay = <div className='alarm-status-wrapper'>
+    {values?.alarming
+      ? <BsBellFill />
+      : limits?.isAlarmOn
+        ? <FiBell />
+        : <FiBellOff />}
+  </div>;
+  const nameDispaly = <div className='name-wrapper'>
+    <div className='name'>{name}</div>
+  </div>;
+  
   return (
     <div className='tank'>
       <div className='header'>
-        <div className='name-wrapper'>
-          <div className='name'>{name}</div>
-        </div>
-        <div className='alarm-status-wrapper'>
-          { 
-            values?.alarming 
-            ? <BsBellFill /> 
-            : limits?.isAlarmOn 
-              ? <FiBell /> 
-              : <FiBellOff />
-          }
-        </div>
+        {nameDispaly}
+        {alarmDisplay}
       </div>
       <Tabs
         selectedIndex={tabIndex} 
