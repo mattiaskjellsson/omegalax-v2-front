@@ -1,8 +1,8 @@
 const production = {
   API_PROTOCOL: 'http',
   API_HOST: '31.216.138.108',
-  API_PORT: 80,
-  API_PATH: 'api'
+  API_PORT: 8080,
+  API_PATH: ''
 };
 
 const development = {
