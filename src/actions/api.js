@@ -2,7 +2,7 @@ import axios from 'axios';
 import config from './config';
 
 const transport = axios.create({
-  baseURL: `${config.API_PROTOCOL}://${config.API_HOST}:${config.API_PORT}/${config.API_PATH}`,
+  baseURL: `${config.API_PROTOCOL}://${config.API_HOST}:${config.API_PORT}/`,
 })
 
 export const getAllLimits = async () => {
