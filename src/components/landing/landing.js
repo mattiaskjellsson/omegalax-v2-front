@@ -117,7 +117,7 @@ export function Landing() {
       </div>
       <div className="tank-row">{
         aTanks.map((x, i) => {
-          return i === 7 
+          return i === 8 
             ? (<div className='wall-container' key={uuid()}>
                 <div key={uuid()} className="wall"></div>
                 {tank(x, i)}
@@ -128,7 +128,7 @@ export function Landing() {
       </div>
       <div className="tank-row">{
         bTanks.map((x, i) => {
-          return i === 7 
+          return i === 8 
             ? (<div className='wall-container' key={uuid()}>
                 <div key={uuid()} className="wall"></div>
                 {tank(x, i)}
@@ -145,7 +145,7 @@ export function Landing() {
       <div className="tank-row">
         {
           cTanks.map((x, i) => {
-            return i === 7 
+            return i === 8 
               ? (<div className='wall-container' key={uuid()}>
                   <div key={uuid()} className="wall"></div>
                   {tank(x, i)}
@@ -162,7 +162,7 @@ export function Landing() {
       <div className="tank-row">
         <div className="spacer-tank"></div>
         { dTanks.map((x, i) => {
-          return i === 6 
+          return i === 7 
             ? (<div className='wall-container' key={uuid()}>
                 <div key={uuid()} className="wall"></div>
                 {tank(x, i)}
