@@ -13,7 +13,7 @@ import { History } from '../history/history';
 import './tank-tabs.css';
 import './tank.css';
 
-export function Tank({id, name, updateInterval, values, limits, onSettingsSave}) {
+export function Tank({id, name, values, limits, onSettingsSave}) {
   const [tabIndex, setTabIndex] = useState(0);
   const [lastTabIndex, setLastTabIndex] = useState(0)
   const [isOpen, setOverlay] = useState(false);
@@ -42,14 +42,14 @@ export function Tank({id, name, updateInterval, values, limits, onSettingsSave})
         ? <FiBell />
         : <FiBellOff />}
   </div>;
-  const nameDispaly = <div className='name-wrapper'>
+  const nameDisplay = <div className='name-wrapper'>
     <div className='name'>{name}</div>
   </div>;
   
   return (
     <div className='tank'>
       <div className='header'>
-        {nameDispaly}
+        {nameDisplay}
         {alarmDisplay}
       </div>
       <Tabs
@@ -82,12 +82,10 @@ export function Tank({id, name, updateInterval, values, limits, onSettingsSave})
             </div>
           </Tab>
         </TabList>
-        <TabPanel style={{ backgroundColor: values?.alarming ? '#f5cece' : 'whitesmoke' }}>
+        <TabPanel style={{ backgroundColor: values?.alarming ? '#f5cece' : '#f5f5f5' }}>
           <Oxygen 
             oxygen={values?.oxygen ?? null}
-            alarming={values?.alarming ? true : false ?? false}
             limits={limits}
-            updateInterval={updateInterval}
           />
         </TabPanel>
         <TabPanel>
