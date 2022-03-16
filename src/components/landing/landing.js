@@ -8,7 +8,7 @@ export function Landing() {
   const cTanks = new Array(13).fill(28).map((v, i) => v + i);
   const dTanks = new Array(10).fill(41).map((v, i) => v + i);
 
-  const updateInterval = 10000;
+  const updateInterval = 20000;
 
   const [limits, setLimits] = useState()
   const [timer, setTimer] = useState()
