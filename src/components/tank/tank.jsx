@@ -82,7 +82,7 @@ export function Tank({id, name, values, limits, onSettingsSave}) {
             </div>
           </Tab>
         </TabList>
-        <TabPanel style={{ backgroundColor: values?.alarming ? '#f5cece' : 'whitesmoke' }}>
+        <TabPanel style={{ backgroundColor: values?.alarming ? '#f5cece' : '#f5f5f5' }}>
           <Oxygen 
             oxygen={values?.oxygen ?? null}
             limits={limits}
